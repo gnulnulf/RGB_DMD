@@ -1,5 +1,6 @@
 // Copyright (c) 2015 Eli Curtz
 
+#include "rgb_dmd.h"
 #include "VersionInfo.h"
 
 char versionString[12];
@@ -20,6 +21,8 @@ void initializeVersionInfo()
   versionLength = strlen(versionString);
   versionString[versionLength++] = '.';
   itoa(versionBuild, &versionString[versionLength], 10);
+  versionLength = strlen(versionString);
+  versionString[versionLength++] = 'G';
   versionLength = strlen(versionString);
 }
 

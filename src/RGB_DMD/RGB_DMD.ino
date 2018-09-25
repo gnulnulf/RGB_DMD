@@ -1,17 +1,32 @@
 // Copyright (c) 2015 Eli Curtz
 
+#include <MatrixHardware_KitV1.h>
 #include <SmartMatrix3.h>
-#include <MatrixHardware_RGB_DMD.h>
 
-#include "BoardInfo.h"
-#include "VersionInfo.h"
+
+//#include <MatrixHardware_RGB_DMD.h>
+//#include <SmartLEDShieldV4.h>
+
+#include "rgb_dmd.h"
+
+
+
+// #include "BoardInfo.h"
+//#include "VersionInfo.h"
 #include "Watchdog.h"
-#include "Palettes.h"
+//#include "Palettes.h"
+
 #include "InputUSB.h"
 #include "InputDMD.h"
 #include "SplashScreen.h"
+
 #include "PinballBrowser.h"
 #include "MatrixSetup.h"
+#include "SerialCommands.h"
+
+//SMARTMATRIX_ALLOCATE_BUFFERS(matrix, kMatrixWidth, kMatrixHeight, kRefreshDepth, kDmaBufferRows, kPanelType, kMatrixOptions);
+//SMARTMATRIX_ALLOCATE_BACKGROUND_LAYER(backgroundLayer, kMatrixWidth, kMatrixHeight, COLOR_DEPTH, kBackgroundLayerOptions);
+
 
 bool dmdInput = false;
 bool usbInput = false;
@@ -106,7 +121,7 @@ void setup()
   if (usbInput) {
     configureInputUSB();
   }
-
+configureInputUSB();
   Serial.println("Setup complete");
 }
 

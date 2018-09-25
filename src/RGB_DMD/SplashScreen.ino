@@ -1,5 +1,6 @@
 // Copyright (c) 2015 Eli Curtz
 
+#include "rgb_dmd.h"
 #include "SplashScreen.h"
 
 const PalleteInfo logoPallete = {

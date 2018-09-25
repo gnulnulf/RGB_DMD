@@ -1,5 +1,5 @@
 // Copyright (c) 2015 Eli Curtz
-
+#include "Settings.h"
 #include "PinballBrowser.h"
 
 bool matchingId = false;

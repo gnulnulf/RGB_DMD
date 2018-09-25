@@ -1,7 +1,8 @@
 // Copyright (c) 2015 Eli Curtz
 #include <EEPROM.h>
-
 #include "Settings.h"
+//#include "rgb_dmd.h"
+
 #include "VersionInfo.h"
 
 Settings settings;

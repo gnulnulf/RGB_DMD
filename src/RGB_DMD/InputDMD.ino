@@ -3,9 +3,11 @@
 #include <DMAChannel.h>
 #include <FastCRC.h>
 
-#include "InputDMD.h"
-#include "MatrixSetup.h"
-#include "Palettes.h"
+#include "rgb_dmd.h"
+
+//#include "InputDMD.h"
+//#include "MatrixSetup.h"
+//#include "Palettes.h"
 
 // Modified input method using DMA completion
 //#define DMA_COMPLETION_ISR 1

@@ -1,5 +1,8 @@
 // Copyright (c) 2015 Eli Curtz
 
+
+//#include "rgb_dmd.h"
+
 #include "InputUSB.h"
 #include "Settings.h"
 
@@ -61,8 +64,24 @@ bool handleInputUSB()
   bool gotCommand = false;
   
   while (Serial.available()) {
+    char inChar = (char)Serial.read();
+    // add it to the inputString:
+       if (inChar == '\n') {
+      stringComplete = true;
+              usbInputIndex = 0;
+    } else {
+    inputString += inChar;
+    }
+  if (stringComplete) {
+  commandStringComplete();
+      // clear the string:
+    inputString = "";
+    stringComplete = false;
+  }
+    
     if (usbInputIndex < USB_MARKER_LENGTH) {
-      usbCommand.marker[usbInputIndex] = Serial.read();
+      usbCommand.marker[usbInputIndex] = inChar;
+      
       if (usbCommand.marker[usbInputIndex] == usbMarker[usbInputIndex]) {
         usbInputIndex++;
       }
@@ -72,7 +91,7 @@ bool handleInputUSB()
     }
     else if (usbInputIndex < sizeof(USBCommandHeader)) {
       uint8_t* commandPtr = (uint8_t*) &usbCommand;
-      commandPtr[usbInputIndex] = Serial.read();
+      commandPtr[usbInputIndex] = inChar;
       usbInputIndex++;
     }
     else {

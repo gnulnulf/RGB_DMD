@@ -1,4 +1,7 @@
+
+#include "rgb_dmd.h"
 #include "BoardInfo.h"
+
 
 uint8_t boardID[6];
 char idString[7];
