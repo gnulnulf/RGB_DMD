@@ -8,7 +8,7 @@
 
 #include <String.h>
 #include "rgb_dmd.h"
-#include "SerialCommands.h"
+#include "inputSerial.h"
 //#include "InputUSB.h"
 //#include "Settings.h"
 
@@ -73,7 +73,11 @@ boolean stringComplete;  // whether the string is complete
 Command commands[] ={
   {"help",&help,0,"Show help commands"},
   {"version",&cmd_version,0,"Show Version"},
-//  {"testje",&cmd_testje,0,"run test function"},
+  {"testje",&cmd_testje,0,"run test function"},
+  {"pixel",&cmd_pixel,0,"pixel"},
+    {"pixel2",&cmd_pixel,0,"pixel2"},
+  {"swap",&cmd_swap,0,"swap"},
+  {"clear",&cmd_clear,0,"cleaer screen"},
 
  // {"rxenable",&cmd_rxenable,0,"Enable channel n"},
 //  {"rxdisable",&cmd_rxdisable,0,"Disable channel n"},
@@ -237,7 +241,7 @@ void cmd_version(String param ){
 Serial.print(F("+RGBDMD:VERSION:"));
 //Serial.print( BVERSION );
 Serial.println("#");
-//Serial.println(versionString);
+Serial.println(versionString);
 //Serial.print("+");
 }
 
@@ -245,23 +249,40 @@ Serial.println("#");
 
 void ping(String param ){
   Serial.println("pong");
-/*
-  rgb24* pixelPtr = backgroundLayer.backBuffer();
-for (int i = 0; i < 128; i++) {
-*pixelPtr++ = rgb24(0xBB, 0xBB, 0xBB);
 }
 
-            backgroundLayer.swapBuffers(false);     
-  */
+void cmd_swap(String param ) {
+  backgroundLayer.swapBuffers();
 }
 
 
 
-void cmd_testje() {
+
+void cmd_pixel(String param ) {
+    rgb24 myColor = {0xff, 0xff, 0xff}; // white
+backgroundLayer.drawPixel(0,0,myColor);
+
+
+}
+void cmd_pixel2(String param ) {
+  rgb24 myColor = {0xff, 0xff, 0xff}; // white
+  
+backgroundLayer.drawPixel(5,5,myColor);
+
+
+}
+
+
+void cmd_clear(String param ) {
+backgroundLayer.fillScreen({0,0,0});
+backgroundLayer.swapBuffers(false);
+}
+
+void cmd_testje(String param ) {
   Serial.println("testje");
-  /*
-    matrix.addLayer(&backgroundLayer); 
-  backgroundLayer.fillScreen(logoPallete2.colors[0]);
+
+   // matrix.addLayer(&backgroundLayer); 
+  backgroundLayer.fillScreen(logoPallete2.colors[10]);
   
   for (uint16_t y = 0; y < 10; y++) {
     rgb24* pixelPtr = backgroundLayer.backBuffer() + ((y + 6) * COL_COUNT) + 32;
@@ -280,7 +301,45 @@ void cmd_testje() {
     backgroundLayer.drawString(COL_COUNT - 2 - (5 * versionLength), 24, logoPallete2.colors[4], versionString);
   
   backgroundLayer.swapBuffers();
-  */
+
+  scrollingLayer1.setMode(wrapForward);
+  scrollingLayer2.setMode(bounceForward);
+  scrollingLayer3.setMode(bounceReverse);
+  scrollingLayer4.setMode(wrapForward);
+  scrollingLayer5.setMode(bounceForward);
+
+  scrollingLayer1.setColor({0xff, 0xff, 0xff});
+  scrollingLayer2.setColor({0xff, 0x00, 0xff});
+  scrollingLayer3.setColor({0xff, 0xff, 0x00});
+  scrollingLayer4.setColor({0x00, 0x00, 0xff});
+  scrollingLayer5.setColor({0xff, 0x00, 0x00});
+
+  scrollingLayer1.setSpeed(10);
+  scrollingLayer2.setSpeed(20);
+  scrollingLayer3.setSpeed(40);
+  scrollingLayer4.setSpeed(80);
+  scrollingLayer5.setSpeed(120);
+
+  scrollingLayer1.setFont(gohufont11b);
+  scrollingLayer2.setFont(gohufont11);
+  scrollingLayer3.setFont(font8x13);
+  scrollingLayer4.setFont(font6x10);
+  scrollingLayer5.setFont(font5x7);
+
+  scrollingLayer4.setRotation(rotation270);
+  scrollingLayer5.setRotation(rotation90);
+
+  scrollingLayer1.setOffsetFromTop((kMatrixHeight/2) - 5);
+  scrollingLayer2.setOffsetFromTop((kMatrixHeight/4) - 5);
+  scrollingLayer3.setOffsetFromTop((kMatrixHeight/2 + kMatrixHeight/4) - 5);
+  scrollingLayer4.setOffsetFromTop((kMatrixWidth/2 + kMatrixWidth/4) - 5);
+  scrollingLayer5.setOffsetFromTop((kMatrixWidth/2 + kMatrixWidth/4) - 5);
+
+  scrollingLayer1.start("Layer 1", -1);
+  scrollingLayer2.start("Layer 2", -1);
+  scrollingLayer3.start("Layer 3", -1);
+  scrollingLayer4.start("Layer 4", -1);
+scrollingLayer5.start("Layer 5", -1);
 }
 
 

@@ -22,7 +22,7 @@
 
 #include "PinballBrowser.h"
 #include "MatrixSetup.h"
-#include "SerialCommands.h"
+#include "inputSerial.h"
 
 //SMARTMATRIX_ALLOCATE_BUFFERS(matrix, kMatrixWidth, kMatrixHeight, kRefreshDepth, kDmaBufferRows, kPanelType, kMatrixOptions);
 //SMARTMATRIX_ALLOCATE_BACKGROUND_LAYER(backgroundLayer, kMatrixWidth, kMatrixHeight, COLOR_DEPTH, kBackgroundLayerOptions);
@@ -79,6 +79,15 @@ void setup()
   
   // Configure matrix output
   matrix.addLayer(&backgroundLayer); 
+
+matrix.addLayer(&scrollingLayer1); 
+  matrix.addLayer(&scrollingLayer2); 
+  matrix.addLayer(&scrollingLayer3); 
+  matrix.addLayer(&scrollingLayer4); 
+  matrix.addLayer(&scrollingLayer5); 
+//  matrix.begin();
+
+  
   matrix.begin();
   matrix.setBrightness(64);
   matrix.setRefreshRate(120);

@@ -62,8 +62,12 @@ void ping(String param );
 //void cmd_rxdisable(String param);
 //void cmd_txframe(String param);
 
-void cmd_testje();
+void cmd_testje(String param );
 
+void cmd_pixel(String param );
+void cmd_pixel2(String param );
+void cmd_swap(String param );
+void cmd_clear(String param );
 /*
 
 */
